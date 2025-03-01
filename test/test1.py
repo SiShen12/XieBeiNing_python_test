@@ -10,4 +10,9 @@ data_file = os.path.join('..','data','house_tiny.csv')
 
 import pandas as pd
 data = pd.read_csv(data_file)
-print(data)
+
+inputs,outputs = data.iloc[:,0:2],data.iloc[:,2]
+inputs = inputs.fillna(inputs.mean())
+
+inputs = pd.get_dummies(inputs,dummy_na=True)
+print(inputs)
