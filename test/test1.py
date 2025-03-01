@@ -20,3 +20,4 @@ import  torch
 x = torch.tensor(inputs.to_numpy(dtype=float))
 y = torch.tensor(outputs.to_numpy(dtype=float))
 print(x,y)
+
