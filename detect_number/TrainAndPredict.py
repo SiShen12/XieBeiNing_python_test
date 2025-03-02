@@ -34,3 +34,36 @@ class SimpleCNN(nn.Module):
 model = SimpleCNN()
 criterion = nn.NLLLoss()
 optimizer = optim.SGD(model.parameters(),lr=0.01,momentum=0.5)
+#训练模型
+def train(model,train_loader,optimizer,epoch):
+    model.train()
+    for batch_idx,(data,target)in enumerate(train_loader):
+        optimizer.zero_grad()
+        output = model(data)
+        loss = criterion(output,target)
+        loss.backward()
+        optimizer.step()
+        if batch_idx % 100 == 0:
+            print('Train Epoch:{}[{}/{}({:.0f})%]\tLoss:{:.6f}'.format(epoch,
+                batch_idx*len(data),len(train_loader.dataset),100.*batch_idx/
+                len(train_loader),loss.item()))
+
+#测试模型
+def test(model,test_loader):
+    model.eval()
+    test_loss = 0
+    correct = 0
+    with torch.no_grad():
+        for data,target in test_loader:
+            output = model(data)
+            test_loss += criterion(output,target).item()
+            pred =output.argmax(dim=1,keepdim=True)
+            correct+=pred.eq(target.view_as(pred)).sum().item()
+    test_loss/=len(test_loader.dataset)
+    print(f'\nTest set:Average loss:{test_loss:.4f},Accuracy:{correct}'
+          f'/{len(test_loader.dataset)}({100.*correct/len(test_loader.dataset):.0f}%)\n')
+
+#训练和测试模型
+for epoch in range(1,5):
+    train(model,train_loader, optimizer, epoch)
+    test(model,test_loader)
