@@ -15,7 +15,7 @@ inputs,outputs = data.iloc[:,0:2],data.iloc[:,2]
 inputs = inputs.fillna(inputs.mean())
 
 inputs = pd.get_dummies(inputs,dummy_na=True)
-
+     #1
 import  torch
 x = torch.tensor(inputs.to_numpy(dtype=float))
 y = torch.tensor(outputs.to_numpy(dtype=float))
