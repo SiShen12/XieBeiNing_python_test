@@ -40,6 +40,7 @@ def train(model,train_loader,optimizer,epoch):
     for batch_idx,(data,target)in enumerate(train_loader):
         optimizer.zero_grad()
         output = model(data)
+
         loss = criterion(output,target)
         loss.backward()
         optimizer.step()
