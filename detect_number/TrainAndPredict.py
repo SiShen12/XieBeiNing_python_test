@@ -17,6 +17,8 @@ test_loader=DataLoader(test_dataset,batch_size=64,shuffle=False)
 #定义简单的CNN模型
 
 
+
+
 class SimpleCNN(nn.Module):
     def __init__(self):
         super(SimpleCNN,self).__init__()
